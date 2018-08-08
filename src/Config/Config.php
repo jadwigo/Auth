@@ -33,6 +33,12 @@ class Config
     /** @var string */
     protected $urlAuth;
     /** @var string */
+    protected $deleteMethod;
+    /** @var string */
+    protected $deleteName;
+    /** @var string */
+    protected $deleteEmail;
+    /** @var string */
     protected $notificationName;
     /** @var string */
     protected $notificationEmail;
@@ -81,6 +87,10 @@ class Config
         $this->redirectVerify = $config['redirects']['verify'];
         $this->redirectReset = $config['redirects']['reset'];
         $this->redirectDelete = $config['redirects']['delete'];
+
+        $this->deleteMethod = $config['delete']['method'];
+        $this->deleteName = $config['delete']['clear_name'];
+        $this->deleteEmail = $config['delete']['clear_email'];
 
         $this->forms = new Forms($config['forms']);
 
@@ -523,6 +533,67 @@ class Config
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDeleteMethod()
+    {
+        return $this->deleteMethod;
+    }
+
+    /**
+     * @param string $deleteMethod
+     *
+     * @return Config
+     */
+    public function setDeleteMethod($deleteMethod)
+    {
+        $this->deleteMethod = $deleteMethod;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeleteName()
+    {
+        return $this->deleteName;
+    }
+
+    /**
+     * @param string $deleteName
+     *
+     * @return Config
+     */
+    public function setDeleteName($deleteName)
+    {
+        $this->deleteName = $deleteName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeleteEmail()
+    {
+        return $this->deleteEmail;
+    }
+
+    /**
+     * @param string $deleteEmail
+     *
+     * @return Config
+     */
+    public function setDeleteEmail($deleteEmail)
+    {
+        $this->deleteEmail = $deleteEmail;
+
+        return $this;
+    }
+
 
     /**
      * @return array
