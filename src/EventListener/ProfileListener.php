@@ -45,6 +45,7 @@ class ProfileListener implements EventSubscriberInterface
         return [
             AuthEvents::AUTH_PROFILE_REGISTER => 'onProfileRegister',
             AuthEvents::AUTH_PROFILE_RESET    => 'onProfileReset',
+            AuthEvents::AUTH_PROFILE_DELETE   => 'onProfileDelete',
         ];
     }
 
@@ -73,6 +74,18 @@ class ProfileListener implements EventSubscriberInterface
     }
 
     /**
+     * Account delete notification event.
+     *
+     * @param AuthNotificationEvent $event
+     * @param string                   $eventName
+     * @param EventDispatcherInterface $dispatcher
+     */
+    public function onProfileDelete(AuthNotificationEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    {
+        $this->getDeleteHandler()->handle($event, $eventName, $dispatcher);
+    }
+
+    /**
      * @return ProfileRegister
      */
     private function getRegisterHandler()
@@ -86,5 +99,13 @@ class ProfileListener implements EventSubscriberInterface
     private function getResetHandler()
     {
         return $this->app['auth.event_handler.profile_reset'];
+    }
+
+    /**
+     * @return DeleteReset
+     */
+    private function getDeleteHandler()
+    {
+        return $this->app['auth.event_handler.profile_delete'];
     }
 }

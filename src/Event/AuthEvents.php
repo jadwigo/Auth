@@ -24,6 +24,7 @@ class AuthEvents
     const AUTH_PROFILE_PRE_SAVE = 'auth.profile.pre_save';
     const AUTH_PROFILE_POST_SAVE = 'auth.profile.post_save';
     const AUTH_PROFILE_REGISTER = 'auth.profile.register';
+    const AUTH_PROFILE_DELETE = 'auth.profile.delete';
     const AUTH_PROFILE_RESET = 'auth.profile.reset';
     const AUTH_PROFILE_VERIFY = 'auth.profile.verify';
     const AUTH_ROLE = 'auth.role';
