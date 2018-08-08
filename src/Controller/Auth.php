@@ -183,13 +183,33 @@ class Auth extends AbstractController
             /** @var Form\Entity\Profile $entity */
             $entity = $resolvedBuild->getEntity(Form\AuthForms::PROFILE_DELETE);
             $form = $resolvedBuild->getForm(Form\AuthForms::PROFILE_DELETE);
-            $this->getAuthRecordsProfile()->saveProfileForm($entity, $form);
+
+            $config = $app['auth.config'];
+            $method = $config->getDeleteMethod();
+
+            if ($method == 'clear') {
+                $this->getAuthFeedback()->debug(sprintf('Anonymizing the account %s (%s)', $authSession->getAccount()->getEmail(), $authSession->getGuid()));
+                // set anonymized values
+                $entity->setDisplayname($config->getDeleteName());
+                $entity->setEmail($config->getDeleteEmail());
+                // disable account
+                $entity->setEnabled(false);
+                // save everything
+                $this->getAuthRecordsProfile()->saveProfileForm($entity, $form);
+            } else {
+                $app['auth.admin']->deleteAccount($entity->getGuid());
+            }
+
+            // logout the user
+            // and redirect to default logout page
+            return new RedirectResponse($config->getRedirectLogout());
+        } else {
+            $template = $this->getAuthConfig()->getTemplate('profile', 'delete');
+            $html = $this->getAuthFormsManager()->renderForms($resolvedBuild, $app['twig'], $template);
+
+            return new Response(new \Twig_Markup($html, 'UTF-8'));
         }
 
-        $template = $this->getAuthConfig()->getTemplate('profile', 'delete');
-        $html = $this->getAuthFormsManager()->renderForms($resolvedBuild, $app['twig'], $template);
-
-        return new Response(new \Twig_Markup($html, 'UTF-8'));
     }
 
     /**
