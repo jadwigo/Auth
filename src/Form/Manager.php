@@ -201,7 +201,7 @@ class Manager
         /** @var Builder\Profile $builder */
         $builder = $this->formGenerator->getFormBuilder(AuthForms::PROFILE_DELETE, null, $profile);
 
-        /** @var ProfileEditType $type */
+        /** @var ProfileDeleteType $type */
         $type = $builder->getType();
         $type->setRequirePassword(false);
 

@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ProfileDeleteType extends AbstractProfileType
 {
     /** @var boolean */
-    protected $requirePassword = true;
+    protected $requirePassword = false;
 
     /**
      * {@inheritdoc}
