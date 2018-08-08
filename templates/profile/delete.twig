@@ -21,7 +21,7 @@
             {{ form_errors(form_profile_delete) }}
 
             {% for name, row in form_profile_delete if name not in ['submit', 'password'] %}
-                <div class="auth_{{ row.vars.name }}">{{ form_row(row, {'attr': {'disabled': 'disabled'}}) }}</div>
+                <div class="auth_{{ row.vars.name }}">{{ form_row(row, {'attr': {'readonly': 'readonly'}}) }}</div>
             {% endfor %}
             {#{% do form_profile_delete.displayname.setRendered %}#}
             {#{% do form_profile_delete.email.setRendered %}#}
