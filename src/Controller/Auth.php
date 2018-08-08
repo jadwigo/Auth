@@ -61,6 +61,11 @@ class Auth extends AbstractController
             ->method(Request::METHOD_GET)
         ;
 
+        $ctr->match('/profile/delete', [$this, 'deleteProfile'])
+            ->bind('authProfileDelete')
+            ->method(Request::METHOD_GET . '|' . Request::METHOD_POST)
+        ;
+
         // Own the rest of the base route
         $ctr->match('/', [$this, 'defaultRoute'])
             ->bind('authDefaultBase')
