@@ -652,6 +652,7 @@ class Config
                     'password_first'  => 'Password',
                     'password_second' => 'Repeat Password',
                     'profile_save'    => 'Save & Continue',
+                    'profile_delete'  => 'Delete Profile',
                 ],
                 'placeholders' => [
                     'displayname'     => 'The name you would like to display publicly…',
