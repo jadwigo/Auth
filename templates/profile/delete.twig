@@ -15,16 +15,19 @@
     {{ include(templates.feedback) }}
 
     <div class="profile profile-delete">
+        <p>{{ __('Do you really want to delete your account?') }}</p>
 
         {{ form_start(form_profile_delete) }}
             {{ form_errors(form_profile_delete) }}
+
             {% for name, row in form_profile_delete if name not in ['submit', 'password'] %}
-                <div class="auth_{{ row.vars.name }}">{{ form_row(row) }}</div>
+                <div class="auth_{{ row.vars.name }}">{{ form_row(row, {'attr': {'disabled': 'disabled'}}) }}</div>
             {% endfor %}
-            {% do form_profile_view.password.setRendered %}
+            {#{% do form_profile_delete.displayname.setRendered %}#}
+            {#{% do form_profile_delete.email.setRendered %}#}
+            {% do form_profile_delete.password.setRendered %}
             {{ form_row(form_profile_delete.submit, {'attr': {'class': 'button btn btn-default'}}) }}
         {{ form_end(form_profile_delete) }}
-
     </div>
 
 {% endblock %}
