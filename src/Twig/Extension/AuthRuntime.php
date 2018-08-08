@@ -331,6 +331,28 @@ class AuthRuntime extends TwigExtension
     }
 
     /**
+     * Display that profile delete form.
+     *
+     * @param TwigEnvironment $twigEnvironment
+     * @param string          $template
+     *
+     * @return TwigMarkup
+     */
+    public function renderDelete(TwigEnvironment $twigEnvironment, $template = null)
+    {
+        if (!$this->session->hasAuthorisation()) {
+            return $this->renderLogin($twigEnvironment, $template);
+        }
+
+        $guid = $this->session->getAuthorisation()->getGuid();
+        $template = $template ?: $this->config->getTemplate('profile', 'delete');
+        $form = $this->formManager->getFormProfileEdit(new Request(), false, $guid);
+        $html = $this->formManager->renderForms($form, $twigEnvironment, $template);
+
+        return new TwigMarkup($html, 'UTF-8');
+    }
+
+    /**
      * Display the registration form.
      *
      * @param TwigEnvironment $twigEnvironment
@@ -406,6 +428,18 @@ class AuthRuntime extends TwigExtension
     public function getLinkEdit($format = UrlGeneratorInterface::RELATIVE_PATH)
     {
         return $this->generator->generate('authProfileEdit', [], $format);
+    }
+
+    /**
+     * Get the URL for profile delete.
+     *
+     * @param int $format
+     *
+     * @return string
+     */
+    public function getLinkDelete($format = UrlGeneratorInterface::RELATIVE_PATH)
+    {
+        return $this->generator->generate('authProfileDelete', [], $format);
     }
 
     /**

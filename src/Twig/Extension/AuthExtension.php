@@ -43,8 +43,10 @@ class AuthExtension extends Extension
             new SimpleFunction('auth_link_auth_reset',       [AuthRuntime::class, 'getLinkReset'],    $safe),
             new SimpleFunction('auth_link_profile_view',     [AuthRuntime::class, 'getLinkView'],     $safe),
             new SimpleFunction('auth_link_profile_edit',     [AuthRuntime::class, 'getLinkEdit'],     $safe),
+            new SimpleFunction('auth_link_profile_delete',   [AuthRuntime::class, 'getLinkDelete'],     $safe),
             new SimpleFunction('auth_link_profile_register', [AuthRuntime::class, 'getLinkRegister'], $safe),
             new SimpleFunction('auth_profile_edit',          [AuthRuntime::class, 'renderEdit'],      $safe + $env),
+            new SimpleFunction('auth_profile_delete',        [AuthRuntime::class, 'renderDelete'],      $safe + $env),
             new SimpleFunction('auth_profile_register',      [AuthRuntime::class, 'renderRegister'],  $safe + $env),
         ];
     }
