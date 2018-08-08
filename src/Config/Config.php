@@ -609,6 +609,11 @@ class Config
                 'authenticate' => 'authentication',
                 'auth'      => 'auth',
             ],
+            'delete'         => [
+                'method'      => 'clear', // clear | delete
+                'clear_name'  => 'removed',
+                'clear_email' => 'removed@example.com',
+            ],
             'forms'         => [
                 'templates' => [
                     'profile'        => [

@@ -39,6 +39,19 @@ debug: true
 #    auth: auth                    # The {auth} mentioned in the docs for
 #                                  # for paths like /{auth}/profile
 
+## urls #######################################################################
+#
+# The clear method overwrites the profile with an anonymized user. This is
+# the default, because user generated content still stays linked to an account
+# and this way the account will still be there.
+#
+# The delete method deletes the record from the database. This is useful
+# if there is no user generated content in the site.
+delete:
+    method: 'clear' # clear | delete
+    clear_name: 'removed'
+    clear_email: 'removed@example.com'
+
 ## Access Control #############################################################
 #
 #roles:
