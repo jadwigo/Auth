@@ -185,6 +185,42 @@ class Manager
     }
 
     /**
+     * Return the resolved profile delete form.
+     *
+     * @param Request $request       The client Request object being processed.
+     * @param bool    $includeParent Should the template be rendered in a parent, or empty container.
+     * @param string  $guid          Auth GUID.
+     *
+     * @return ResolvedFormBuild
+     */
+    public function getFormProfileDelete(Request $request, $includeParent = true, $guid = null)
+    {
+        $resolvedBuild = new ResolvedFormBuild();
+        $profile = $this->getEntityProfile($guid);
+
+        /** @var Builder\Profile $builder */
+        $builder = $this->formGenerator->getFormBuilder(AuthForms::PROFILE_DELETE, null, $profile);
+
+        /** @var ProfileEditType $type */
+        $type = $builder->getType();
+        $type->setRequirePassword(false);
+
+        $formEdit = $builder
+            ->setAction($this->urlGenerator->generate('authProfileDelete'))
+            ->createForm([])
+            ->handleRequest($request)
+        ;
+        $resolvedBuild->addBuild(AuthForms::PROFILE_DELETE, $builder, $formEdit);
+
+        $extraContext = [
+            'twigparent' => $this->config->getTemplate('profile', $includeParent ? 'parent' : 'default'),
+        ];
+        $resolvedBuild->setContext($extraContext);
+
+        return $resolvedBuild;
+    }
+
+    /**
      * Return the resolved profile viewing form.
      *
      * @param Request $request       The client Request object being processed.

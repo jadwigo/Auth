@@ -152,6 +152,41 @@ class Auth extends AbstractController
         return new Response(new \Twig_Markup($html, 'UTF-8'));
     }
 
+
+    /**
+     * Delete an existing auth profile.
+     *
+     * @param Application $app
+     * @param Request     $request
+     *
+     * @return Response
+     */
+    public function deleteProfile(Application $app, Request $request)
+    {
+        $authSession = $this->getAuthSession()->getAuthorisation();
+        if ($authSession === null) {
+            $app['session']->set(Authentication::FINAL_REDIRECT_KEY, $request->getUri());
+            $this->getAuthFeedback()->info('Login required to delete your profile');
+
+            return new RedirectResponse($app['url_generator']->generate('authenticationLogin'));
+        }
+        $this->getAuthFeedback()->debug(sprintf('Deleting profile for account %s (%s)', $authSession->getAccount()->getEmail(), $authSession->getGuid()));
+
+        // Handle the form request data
+        $resolvedBuild = $this->getAuthFormsManager()->getFormProfileDelete($request, true, $authSession->getGuid());
+        if ($resolvedBuild->getForm(Form\AuthForms::PROFILE_DELETE)->isValid()) {
+            /** @var Form\Entity\Profile $entity */
+            $entity = $resolvedBuild->getEntity(Form\AuthForms::PROFILE_DELETE);
+            $form = $resolvedBuild->getForm(Form\AuthForms::PROFILE_DELETE);
+            $this->getAuthRecordsProfile()->saveProfileForm($entity, $form);
+        }
+
+        $template = $this->getAuthConfig()->getTemplate('profile', 'delete');
+        $html = $this->getAuthFormsManager()->renderForms($resolvedBuild, $app['twig'], $template);
+
+        return new Response(new \Twig_Markup($html, 'UTF-8'));
+    }
+
     /**
      * Register a new auth profile.
      *

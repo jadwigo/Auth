@@ -175,6 +175,10 @@ class Generator
                     'form' => Builder\Profile::class,
                     'type' => Type\ProfileEditType::class,
                 ],
+                AuthForms::PROFILE_DELETE => [
+                    'form' => Builder\Profile::class,
+                    'type' => Type\ProfileDeleteType::class,
+                ],
                 AuthForms::PROFILE_RECOVERY_REQUEST => [
                     'form' => Builder\ProfileRecovery::class,
                     'type' => Type\ProfileRecoveryRequestType::class,

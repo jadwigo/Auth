@@ -304,6 +304,11 @@ class AuthServiceProvider implements ServiceProviderInterface, EventSubscriberIn
                                 return new Form\Type\ProfileEditType($app['auth.config']);
                             }
                         ),
+                        'profile_delete' => $app->share(
+                            function () use ($app) {
+                                return new Form\Type\ProfileDeleteType($app['auth.config']);
+                            }
+                        ),
                         'profile_recovery_request' => $app->share(
                             function () use ($app) {
                                 return new Form\Type\ProfileRecoveryRequestType($app['auth.config']);

@@ -20,6 +20,7 @@ class AuthForms
     const LOGIN_PASSWORD = 'form_login_password';
     const LOGOUT = 'form_logout';
     const PROFILE_EDIT = 'form_profile_edit';
+    const PROFILE_DELETE = 'form_profile_delete';
     const PROFILE_RECOVERY_REQUEST = 'form_profile_recovery_request';
     const PROFILE_RECOVERY_SUBMIT = 'form_profile_recovery_submit';
     const PROFILE_REGISTER = 'form_profile_register';

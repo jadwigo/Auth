@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  *            Copyright (C) 2017 Svante Richter
  * @license   https://opensource.org/licenses/MIT MIT
  */
-class ProfileEditType extends AbstractProfileType
+class ProfileDeleteType extends AbstractProfileType
 {
     /** @var boolean */
     protected $requirePassword = true;
@@ -28,7 +28,7 @@ class ProfileEditType extends AbstractProfileType
      */
     public function getName()
     {
-        return AuthForms::PROFILE_EDIT;
+        return AuthForms::PROFILE_DELETE;
     }
 
     /**
@@ -43,7 +43,7 @@ class ProfileEditType extends AbstractProfileType
                 'submit',
                 SubmitType::class,
                 [
-                    'label'   => Trans::__($this->config->getLabel('profile_save')),
+                    'label'   => Trans::__($this->config->getLabel('profile_delete')),
                 ]
             )
         ;
