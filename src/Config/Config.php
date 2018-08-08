@@ -614,6 +614,7 @@ class Config
                     'profile'        => [
                         'parent'   => '@Auth/profile/_profile.twig',
                         'edit'     => '@Auth/profile/edit.twig',
+                        'delete'   => '@Auth/profile/delete.twig',
                         'register' => '@Auth/profile/register.twig',
                         'verify'   => '@Auth/profile/verify.twig',
                         'view'     => '@Auth/profile/view.twig',
